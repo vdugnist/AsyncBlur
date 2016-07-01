@@ -80,7 +80,7 @@
 			children = (
 				FABE5B241D26B1E900BA0178 /* main.m */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		FABE5B3A1D26B22900BA0178 /* Example */ = {
@@ -88,28 +88,28 @@
 			children = (
 				FABE5B261D26B1E900BA0178 /* AppDelegate.h */,
 				FABE5B271D26B1E900BA0178 /* AppDelegate.m */,
+				FABE5B2F1D26B1E900BA0178 /* Assets.xcassets */,
+				FABE5B341D26B1E900BA0178 /* Info.plist */,
+				FABE5B311D26B1E900BA0178 /* LaunchScreen.storyboard */,
+				FABE5B2C1D26B1E900BA0178 /* Main.storyboard */,
 				FABE5B291D26B1E900BA0178 /* ViewController.h */,
 				FABE5B2A1D26B1E900BA0178 /* ViewController.m */,
-				FABE5B2C1D26B1E900BA0178 /* Main.storyboard */,
-				FABE5B2F1D26B1E900BA0178 /* Assets.xcassets */,
-				FABE5B311D26B1E900BA0178 /* LaunchScreen.storyboard */,
-				FABE5B341D26B1E900BA0178 /* Info.plist */,
 			);
-			name = Example;
+			path = Example;
 			sourceTree = "<group>";
 		};
 		FABE5B441D26B24C00BA0178 /* AsyncBlur */ = {
 			isa = PBXGroup;
 			children = (
-				FABE5B451D26C68D00BA0178 /* AsyncBlur.h */,
-				FABE5B3B1D26B24700BA0178 /* ABManager.h */,
-				FABE5B3C1D26B24700BA0178 /* ABManager.m */,
 				FABE5B3D1D26B24700BA0178 /* ABImageView.h */,
 				FABE5B3E1D26B24700BA0178 /* ABImageView.m */,
+				FABE5B3B1D26B24700BA0178 /* ABManager.h */,
+				FABE5B3C1D26B24700BA0178 /* ABManager.m */,
+				FABE5B451D26C68D00BA0178 /* AsyncBlur.h */,
 				FABE5B3F1D26B24700BA0178 /* UIImage+AB.h */,
 				FABE5B401D26B24700BA0178 /* UIImage+AB.m */,
 			);
-			name = AsyncBlur;
+			path = AsyncBlur;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +201,7 @@
 				FABE5B2D1D26B1E900BA0178 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		FABE5B311D26B1E900BA0178 /* LaunchScreen.storyboard */ = {
@@ -209,6 +210,7 @@
 				FABE5B321D26B1E900BA0178 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -303,7 +305,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = AsyncBlur/Info.plist;
+				INFOPLIST_FILE = AsyncBlur/Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mlworks.AsyncBlur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -315,7 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = AsyncBlur/Info.plist;
+				INFOPLIST_FILE = AsyncBlur/Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mlworks.AsyncBlur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -341,6 +343,7 @@
 				FABE5B391D26B1E900BA0178 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
