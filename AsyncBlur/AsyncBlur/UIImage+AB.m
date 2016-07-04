@@ -13,6 +13,10 @@
 
 - (UIImage *)ab_blurredImageWithRadius:(NSNumber *)radius
 {
+    if (!radius.floatValue) {
+        return self;
+    }
+    
     CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
     [gaussianBlurFilter setDefaults];
     [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[self CGImage]] forKey:kCIInputImageKey];

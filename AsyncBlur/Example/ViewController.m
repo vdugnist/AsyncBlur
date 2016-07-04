@@ -11,7 +11,7 @@
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet ABImageView *imageView;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @end
@@ -24,11 +24,9 @@
 }
 
 - (void)sliderDidScroll:(UISlider *)slider {
-    UIImage *image = [UIImage imageNamed:@"lena"];
     CGFloat maxBlur = 20;
     CGFloat currentBlur = slider.value * maxBlur;
-    
-    [ABManager renderBlurForImage:image radius:@(currentBlur) andSetInImageView:self.imageView];
+    self.imageView.blurRadius = currentBlur;
 }
 
 @end

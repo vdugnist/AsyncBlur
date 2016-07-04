@@ -15,11 +15,20 @@ static CGFloat const kDefaultBlurRadius = 35.0;
 
 @implementation ABImageView {
     __block BOOL _animating;
+    UIImage *_originalImage;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
         _blurRadius = kDefaultBlurRadius;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        _originalImage = self.image;
     }
     
     return self;
@@ -33,6 +42,11 @@ static CGFloat const kDefaultBlurRadius = 35.0;
         return;
     }
     
+    _originalImage = image;
+    [self blurAndSetImage:image];
+}
+
+- (void)blurAndSetImage:(UIImage *)image {
     __weak ABImageView *weakSelf = self;
     
     [ABManager renderBlurForImage:image forImageView:self radius:@(self.blurRadius) withCallback:^(UIImage *blurredImage) {
@@ -45,12 +59,16 @@ static CGFloat const kDefaultBlurRadius = 35.0;
                             [weakSelf ab_setImage:blurredImage];
                         } completion:nil];
     }];
-    
 }
 
 - (void)ab_setImage:(UIImage *)image
 {
     [super setImage:image];
+}
+
+- (void)setBlurRadius:(CGFloat)blurRadius {
+    _blurRadius = blurRadius;
+    [self blurAndSetImage:_originalImage];
 }
 
 @end
