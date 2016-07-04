@@ -68,6 +68,11 @@ static CGFloat const kDefaultRadius = 35.0;
     task.blurCallback = callback;
     task.blurRadius = radius;
     
+    if (!task.blurRadius.floatValue || !task.image || TARGET_IPHONE_SIMULATOR) {
+        completeTask(task, task.image);
+        return;
+    }
+    
     [[self sharedInstance] addTask:task];
 }
 
@@ -104,30 +109,28 @@ static CGFloat const kDefaultRadius = 35.0;
 
 - (void)executeTask:(BlurTask *)task
 {
-    __weak ABManager *weakSelf = self;
-    
-    void(^completeWithImage)(UIImage *) = ^(UIImage *blurred) {
-        if (task.imageView && task.blurCallback) {
-            task.blurCallback(blurred);
-        } else if (task.imageView) {
-            [task.imageView setImage:blurred];
-        }
-        
-        [weakSelf renderNextImage];
-    };
-    
     if (!task.blurRadius.floatValue) {
-        completeWithImage(task.image);
+        completeTask(task, task.image);
+        [self renderNextImage];
+        return;
     }
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(queue, ^{
         UIImage *blurred = [task.image ab_blurredImageWithRadius:task.blurRadius];
-        dispatch_sync(dispatch_get_main_queue(), ^
-        {
-            completeWithImage(blurred);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completeTask(task, blurred);
+            [self renderNextImage];
         });
     });
+}
+
+void completeTask(BlurTask *task, UIImage *blurredImage) {
+    if (task.imageView && task.blurCallback) {
+        task.blurCallback(blurredImage);
+    } else if (task.imageView) {
+        [task.imageView setImage:blurredImage];
+    }
 }
 
 @end

@@ -36,7 +36,7 @@ static CGFloat const kDefaultBlurRadius = 35.0;
 
 - (void)setImage:(UIImage *)image
 {
-    if (TARGET_IPHONE_SIMULATOR || self.disableBlur || !image) {
+    if (self.disableBlur || !image) {
         [self.layer removeAllAnimations];
         [super setImage:nil];
         return;
