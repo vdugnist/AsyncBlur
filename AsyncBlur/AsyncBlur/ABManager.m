@@ -106,21 +106,27 @@ static CGFloat const kDefaultRadius = 35.0;
 {
     __weak ABManager *weakSelf = self;
     
+    void(^completeWithImage)(UIImage *) = ^(UIImage *blurred) {
+        if (task.imageView && task.blurCallback) {
+            task.blurCallback(blurred);
+        } else if (task.imageView) {
+            [task.imageView setImage:blurred];
+        }
+        
+        [weakSelf renderNextImage];
+    };
+    
+    if (!task.blurRadius.floatValue) {
+        completeWithImage(task.image);
+    }
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(queue, ^{
-
         UIImage *blurred = [task.image ab_blurredImageWithRadius:task.blurRadius];
         dispatch_sync(dispatch_get_main_queue(), ^
         {
-            if (task.imageView && task.blurCallback) {
-                task.blurCallback(blurred);
-            } else if (task.imageView) {
-                [task.imageView setImage:blurred];   
-            }
-
-            [weakSelf renderNextImage];
+            completeWithImage(blurred);
         });
-        
     });
 }
 
