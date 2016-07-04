@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AsyncBlur"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Renderring blurred image from UIImage in background with optimizations."
   s.description = <<-DESC
                   Allows developers render blurred images in background.
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.author             = { "Vladislav Dugnist" => "vdugnist@gmail.com" }
   s.homepage = "https://github.com/ML-Works/AsyncBlur"
   s.source       = { :git => "https://github.com/ML-Works/AsyncBlur.git", :tag => "#{s.version}" }
-  s.source_files  = "AsyncBlur", "AsyncBlur/**/*.{h,m}"
+  s.source_files  = "AsyncBlur", "AsyncBlur/AsyncBlur/**/*.{h,m}"
   s.platform = :ios, 8.0
   s.requires_arc = true
 
