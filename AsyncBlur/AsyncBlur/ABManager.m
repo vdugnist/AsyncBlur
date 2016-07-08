@@ -42,22 +42,17 @@ static CGFloat const kDefaultRadius = 35.0;
 
 + (void)renderBlurForImage:(UIImage *)image andSetInImageView:(UIImageView *)imageView
 {
-    [self renderBlurForImage:image radius:@(kDefaultRadius) andSetInImageView:imageView];
+    return [self renderBlurForImage:image radius:@(kDefaultRadius) andSetInImageView:imageView];
 }
 
 + (void)renderBlurForImage:(UIImage *)image radius:(NSNumber *)radius andSetInImageView:(UIImageView *)imageView
 {
-    BlurTask *task = [BlurTask new];
-    task.image = image;
-    task.blurRadius = radius;
-    task.imageView = imageView;
-    
-    [[self sharedInstance] addTask:task];
+    return [self renderBlurForImage:image forImageView:imageView radius:radius withCallback:nil];
 }
 
 + (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView withCallback:(void (^)(UIImage *))callback
 {
-    [self renderBlurForImage:image forImageView:imageView radius:@(kDefaultRadius) withCallback:callback];
+    return [self renderBlurForImage:image forImageView:imageView radius:@(kDefaultRadius) withCallback:callback];
 }
 
 + (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView radius:(NSNumber *)radius withCallback:(void (^)(UIImage *))callback
@@ -83,7 +78,10 @@ static CGFloat const kDefaultRadius = 35.0;
 }
 
 - (void)startRenderring {
-    if (_isRenderring) return;
+    if (_isRenderring) {
+        return;
+    }
+    
     [self renderNextImage];
 }
 
