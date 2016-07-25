@@ -115,7 +115,17 @@ static CGFloat const kDefaultRadius = 35.0;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(queue, ^{
-        UIImage *blurred = [task.image ab_blurredImageWithRadius:task.blurRadius];
+        UIImage *blurred = nil;
+        
+        if (task.imageView) {
+            CGFloat scale = [UIScreen mainScreen].scale;
+            CGSize imageSizeInPoints = task.imageView.frame.size;
+            CGSize imageSizeInPixels = CGSizeMake(imageSizeInPoints.width * scale, imageSizeInPoints.height * scale);
+            blurred = [task.image ab_blurredImageWithRadius:task.blurRadius scaledToSize:imageSizeInPixels];
+        } else {
+            blurred = [task.image ab_blurredImageWithRadius:task.blurRadius];
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             completeTask(task, blurred);
             [self renderNextImage];
