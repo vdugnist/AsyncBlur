@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AsyncBlur"
-  s.version      = "0.2.1"
+  s.version      = "0.2.2"
   s.summary      = "Renderring blurred image from UIImage in background with optimizations."
   s.description = <<-DESC
                   Allows developers render blurred images in background.

@@ -23,6 +23,7 @@
 @interface ABManager ()
 @property (nonatomic) BOOL isRenderring;
 @property (nonatomic) NSMutableArray *tasks;
+@property (nonatomic) dispatch_queue_t blurQueue;
 @end
 
 static CGFloat const kDefaultRadius = 35.0;
@@ -36,6 +37,8 @@ static CGFloat const kDefaultRadius = 35.0;
     dispatch_once(&onceToken, ^{
         manager = [ABManager new];
         manager.tasks = [NSMutableArray new];
+        dispatch_queue_attr_t attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_BACKGROUND, 0);
+        manager.blurQueue = dispatch_queue_create([NSStringFromClass([self class]) UTF8String], attributes);
     });
     return manager;
 }
@@ -113,8 +116,7 @@ static CGFloat const kDefaultRadius = 35.0;
         return;
     }
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
-    dispatch_async(queue, ^{
+    dispatch_async(self.blurQueue, ^{
         UIImage *blurred = nil;
         
         if (task.imageView) {
