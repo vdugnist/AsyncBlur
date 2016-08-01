@@ -136,7 +136,7 @@ static CGFloat const kDefaultRadius = 35.0;
 }
 
 void completeTask(BlurTask *task, UIImage *blurredImage) {
-    if (task.imageView && task.blurCallback) {
+    if (task.blurCallback) {
         task.blurCallback(blurredImage);
     } else if (task.imageView) {
         [task.imageView setImage:blurredImage];

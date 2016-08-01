@@ -1,0 +1,25 @@
+//
+//  AsyncBlur.pch
+//  AsyncBlur
+//
+//  Created by Vladislav Dugnist on 7/29/16.
+//  Copyright © 2016 Vladislav Dugnist. All rights reserved.
+//
+
+#ifndef AsyncBlur_pch
+#define AsyncBlur_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef DEBUG
+#define TICK NSDate *__startTime = [NSDate date]
+#define TOCK NSLog(@"⏲ %s time: %f", __PRETTY_FUNCTION__, -[__startTime timeIntervalSinceNow])
+#define MARK NSLog(@"✔︎ %s", __PRETTY_FUNCTION__)
+#else
+#define TICK
+#define TOCK
+#define MARK
+#endif
+
+#endif /* AsyncBlur_pch */
