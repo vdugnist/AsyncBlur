@@ -25,7 +25,7 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
 #pragma mark - Accelerate framework implementation
 
 - (UIImage *)ab_blurredImageWithRadius:(NSNumber *)radius scaledToSize:(CGSize)size {
-    if (!radius.floatValue) {
+    if (radius.floatValue <= 0) {
         return self;
     }
     

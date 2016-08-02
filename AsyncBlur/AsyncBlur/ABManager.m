@@ -66,7 +66,7 @@ static CGFloat const kDefaultRadius = 35.0;
     task.blurCallback = callback;
     task.blurRadius = radius;
     
-    if (!task.blurRadius.floatValue || !task.image || TARGET_IPHONE_SIMULATOR) {
+    if ((task.blurRadius.floatValue <= 0) || !task.image || TARGET_IPHONE_SIMULATOR) {
         completeTask(task, task.image);
         return;
     }
