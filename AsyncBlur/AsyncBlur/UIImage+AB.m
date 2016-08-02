@@ -98,7 +98,11 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
     CGFloat ratio = 0;
     
     vImage_Error(^completeWithBufferAndError)(vImage_Buffer buffer, vImage_Error error) = ^vImage_Error(vImage_Buffer buffer, vImage_Error error) {
-        if (!self.abImageCache && error == kvImageNoError) {
+        if (error != kvImageNoError) {
+            return error;
+        }
+
+        if (!self.abImageCache) {
             self.abImageCache = [ABImageCache new];
             self.abImageCache.scaledNonBlurredBuffer = [NSValue valueWithBytes:&buffer objCType:@encode(vImage_Buffer)];
         }
@@ -124,10 +128,7 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
     if (self.abImageCache != nil) {
         vImage_Buffer buffer;
         [self.abImageCache.scaledNonBlurredBuffer getValue:&buffer];
-        if (buffer.width == (vImagePixelCount)resultSize.width &&
-            buffer.height == (vImagePixelCount)resultSize.height) {
-            return completeWithBufferAndError(buffer, kvImageNoError);
-        }
+        return completeWithBufferAndError(buffer, kvImageNoError);
     }
     
     CGImageRef sourceRef = self.CGImage;
