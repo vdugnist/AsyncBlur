@@ -97,15 +97,16 @@ static CGFloat const kDefaultRadius = 35.0;
     
     _isRenderring = YES;
     
-    BlurTask *taskToRender = [_tasks lastObject];
-    
-    NSIndexSet *unnecessaryTasks = [_tasks indexesOfObjectsPassingTest:^BOOL(BlurTask* task, NSUInteger idx, BOOL *stop) {
-        return !task.imageView || task.imageView == taskToRender.imageView;
-    }];
-    
-    [_tasks removeObjectsAtIndexes:unnecessaryTasks];
-    
-    [self executeTask:taskToRender];
+    @synchronized (self) {
+        BlurTask *taskToRender = [_tasks lastObject];
+        
+        NSIndexSet *unnecessaryTasks = [_tasks indexesOfObjectsPassingTest:^BOOL(BlurTask* task, NSUInteger idx, BOOL *stop) {
+            return !task.imageView || task.imageView == taskToRender.imageView;
+        }];
+        
+        [_tasks removeObjectsAtIndexes:unnecessaryTasks];
+        [self executeTask:taskToRender];
+    }
 }
 
 - (void)executeTask:(BlurTask *)task
