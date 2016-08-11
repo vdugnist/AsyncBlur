@@ -67,6 +67,7 @@ static CGFloat const kDefaultRadius = 35.0;
     task.blurRadius = radius;
     
     if ((task.blurRadius.floatValue <= 0) || !task.image || TARGET_IPHONE_SIMULATOR) {
+        [[self sharedInstance] removeTasksSimilarTo:task];
         completeTask(task, task.image);
         return;
     }
@@ -97,15 +98,18 @@ static CGFloat const kDefaultRadius = 35.0;
     
     _isRenderring = YES;
     
+    BlurTask *taskToRender = [_tasks lastObject];
+    [self removeTasksSimilarTo:taskToRender];
+    [self executeTask:taskToRender];
+}
+
+- (void)removeTasksSimilarTo:(BlurTask *)task {
     @synchronized (self) {
-        BlurTask *taskToRender = [_tasks lastObject];
-        
-        NSIndexSet *unnecessaryTasks = [_tasks indexesOfObjectsPassingTest:^BOOL(BlurTask* task, NSUInteger idx, BOOL *stop) {
-            return !task.imageView || task.imageView == taskToRender.imageView;
+        NSIndexSet *unnecessaryTasks = [_tasks indexesOfObjectsPassingTest:^BOOL(BlurTask* obj, NSUInteger idx, BOOL *stop) {
+            return !obj.imageView || obj.imageView == task.imageView;
         }];
         
         [_tasks removeObjectsAtIndexes:unnecessaryTasks];
-        [self executeTask:taskToRender];
     }
 }
 
