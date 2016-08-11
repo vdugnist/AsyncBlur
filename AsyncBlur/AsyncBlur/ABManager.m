@@ -21,7 +21,7 @@
 @end
 
 @interface ABManager ()
-@property (nonatomic) BOOL isRenderring;
+@property BOOL isRenderring;
 @property (nonatomic) NSMutableArray *tasks;
 @property (nonatomic) dispatch_queue_t blurQueue;
 @end
@@ -82,7 +82,7 @@ static CGFloat const kDefaultRadius = 35.0;
 }
 
 - (void)startRenderring {
-    if (_isRenderring) {
+    if (self.isRenderring) {
         return;
     }
     
@@ -92,11 +92,11 @@ static CGFloat const kDefaultRadius = 35.0;
 - (void)renderNextImage
 {
     if (!_tasks.count) {
-        _isRenderring = NO;
+        self.isRenderring = NO;
         return;
     }
     
-    _isRenderring = YES;
+    self.isRenderring = YES;
     
     BlurTask *taskToRender = [_tasks lastObject];
     [self removeTasksSimilarTo:taskToRender];
