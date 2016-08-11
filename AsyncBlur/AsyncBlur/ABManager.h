@@ -12,6 +12,8 @@
 
 @interface ABManager : NSObject
 
++ (void)setShouldBlurOnSimulator:(BOOL)shouldBlurOnSimulator;
+
 + (void)renderBlurForImage:(UIImage *)image andSetInImageView:(UIImageView *)imageView;
 + (void)renderBlurForImage:(UIImage *)image radius:(NSNumber *)radius andSetInImageView:(UIImageView *)imageView;
 

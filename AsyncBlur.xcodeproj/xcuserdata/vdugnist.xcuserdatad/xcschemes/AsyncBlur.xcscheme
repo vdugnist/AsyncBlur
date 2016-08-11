@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FABE5B1F1D26B1E800BA0178"
+               BlueprintIdentifier = "72641D2AA6AEBA2C5D2A1893F9A28148"
                BuildableName = "AsyncBlur.app"
                BlueprintName = "AsyncBlur"
                ReferencedContainer = "container:AsyncBlur.xcodeproj">
@@ -28,11 +28,21 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FAA7CE591D5CC66600829C0C"
+               BuildableName = "AsyncBlurTests.xctest"
+               BlueprintName = "AsyncBlurTests"
+               ReferencedContainer = "container:AsyncBlur.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FABE5B1F1D26B1E800BA0178"
+            BlueprintIdentifier = "72641D2AA6AEBA2C5D2A1893F9A28148"
             BuildableName = "AsyncBlur.app"
             BlueprintName = "AsyncBlur"
             ReferencedContainer = "container:AsyncBlur.xcodeproj">
@@ -55,7 +65,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FABE5B1F1D26B1E800BA0178"
+            BlueprintIdentifier = "72641D2AA6AEBA2C5D2A1893F9A28148"
             BuildableName = "AsyncBlur.app"
             BlueprintName = "AsyncBlur"
             ReferencedContainer = "container:AsyncBlur.xcodeproj">
@@ -74,7 +84,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FABE5B1F1D26B1E800BA0178"
+            BlueprintIdentifier = "72641D2AA6AEBA2C5D2A1893F9A28148"
             BuildableName = "AsyncBlur.app"
             BlueprintName = "AsyncBlur"
             ReferencedContainer = "container:AsyncBlur.xcodeproj">

@@ -22,6 +22,7 @@
 
 @interface ABManager ()
 @property BOOL isRenderring;
+@property BOOL shouldBlurOnSimulator;
 @property (nonatomic) NSMutableArray *tasks;
 @property (nonatomic) dispatch_queue_t blurQueue;
 @end
@@ -66,8 +67,8 @@ static CGFloat const kDefaultRadius = 35.0;
     task.blurCallback = callback;
     task.blurRadius = radius;
     
-    if ((task.blurRadius.floatValue <= 0) || !task.image || TARGET_IPHONE_SIMULATOR) {
-        [[self sharedInstance] removeTasksSimilarTo:task];
+    ABManager *manager = [self sharedInstance];
+    if (!task.image || (TARGET_IPHONE_SIMULATOR && !manager.shouldBlurOnSimulator)) {
         completeTask(task, task.image);
         return;
     }
@@ -75,6 +76,9 @@ static CGFloat const kDefaultRadius = 35.0;
     [[self sharedInstance] addTask:task];
 }
 
++ (void)setShouldBlurOnSimulator:(BOOL)shouldBlurOnSimulator {
+    [self sharedInstance].shouldBlurOnSimulator = shouldBlurOnSimulator;
+}
 
 - (void)addTask:(BlurTask *)task {
     [self.tasks addObject:task];
@@ -106,7 +110,7 @@ static CGFloat const kDefaultRadius = 35.0;
 - (void)removeTasksSimilarTo:(BlurTask *)task {
     @synchronized (self) {
         NSIndexSet *unnecessaryTasks = [_tasks indexesOfObjectsPassingTest:^BOOL(BlurTask* obj, NSUInteger idx, BOOL *stop) {
-            return !obj.imageView || obj.imageView == task.imageView;
+            return obj.imageView && obj.imageView == task.imageView;
         }];
         
         [_tasks removeObjectsAtIndexes:unnecessaryTasks];
