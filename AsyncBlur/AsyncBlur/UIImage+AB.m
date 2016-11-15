@@ -40,7 +40,7 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
 
 #pragma mark - Core graphic implementation
 
-- (UIImage *)ab_blurredImageWithRadius:(NSNumber *)radius
+- (UIImage *)ab_blurredImageWithRadius:(CGFloat)radius
 {
     CGSize screenSizeInPoints = [UIScreen mainScreen].bounds.size;
     CGFloat scale = [UIScreen mainScreen].scale;
@@ -49,8 +49,8 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
 
 #pragma mark - Accelerate framework implementation
 
-- (UIImage *)ab_blurredImageWithRadius:(NSNumber *)radius scaledToSize:(CGSize)size {
-    if (radius.floatValue <= 0) {
+- (UIImage *)ab_blurredImageWithRadius:(CGFloat)radius scaledToSize:(CGSize)size {
+    if (radius <= 0) {
         return self;
     }
     
@@ -68,7 +68,7 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
         .data = malloc(srcBuffer.height * srcBuffer.rowBytes * sizeof(uint8_t))
     };
     
-    uint32_t boxSize = trunc(radius.floatValue * kGausianToTentRadiusRatio);
+    uint32_t boxSize = trunc(radius * kGausianToTentRadiusRatio);
     boxSize |= 1;
     
     error = vImageTentConvolve_ARGB8888(&srcBuffer, &dstBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);

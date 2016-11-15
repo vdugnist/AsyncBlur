@@ -11,7 +11,7 @@
 
 @interface UIImage (AB)
 
-- (UIImage *)ab_blurredImageWithRadius:(NSNumber *)radius;
-- (UIImage *)ab_blurredImageWithRadius:(NSNumber *)radius scaledToSize:(CGSize)size;
+- (UIImage *)ab_blurredImageWithRadius:(CGFloat)radius;
+- (UIImage *)ab_blurredImageWithRadius:(CGFloat)radius scaledToSize:(CGSize)size;
 
 @end

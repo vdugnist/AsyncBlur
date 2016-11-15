@@ -49,7 +49,7 @@ static CGFloat const kDefaultBlurRadius = 35.0;
 - (void)blurAndSetImage:(UIImage *)image {
     __weak ABImageView *weakSelf = self;
     
-    [ABManager renderBlurForImage:image forImageView:self radius:@(self.blurRadius) withCallback:^(UIImage *blurredImage) {
+    [ABManager renderBlurForImage:image forImageView:self radius:self.blurRadius withCallback:^(UIImage *blurredImage) {
         [weakSelf.layer removeAllAnimations];
         
         [UIView transitionWithView:weakSelf

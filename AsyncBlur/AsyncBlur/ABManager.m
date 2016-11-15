@@ -12,7 +12,7 @@
 
 @interface BlurTask : NSObject
 @property (nonatomic) UIImage *image;
-@property (nonatomic) NSNumber *blurRadius;
+@property (nonatomic) CGFloat blurRadius;
 @property (nonatomic, weak) UIImageView *imageView;
 @property (nonatomic, copy) void (^blurCallback)(UIImage *blurredImage);
 @end
@@ -46,20 +46,20 @@ static CGFloat const kDefaultRadius = 35.0;
 
 + (void)renderBlurForImage:(UIImage *)image andSetInImageView:(UIImageView *)imageView
 {
-    return [self renderBlurForImage:image radius:@(kDefaultRadius) andSetInImageView:imageView];
+    return [self renderBlurForImage:image radius:kDefaultRadius andSetInImageView:imageView];
 }
 
-+ (void)renderBlurForImage:(UIImage *)image radius:(NSNumber *)radius andSetInImageView:(UIImageView *)imageView
++ (void)renderBlurForImage:(UIImage *)image radius:(CGFloat)radius andSetInImageView:(UIImageView *)imageView
 {
     return [self renderBlurForImage:image forImageView:imageView radius:radius withCallback:nil];
 }
 
 + (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView withCallback:(void (^)(UIImage *))callback
 {
-    return [self renderBlurForImage:image forImageView:imageView radius:@(kDefaultRadius) withCallback:callback];
+    return [self renderBlurForImage:image forImageView:imageView radius:kDefaultRadius withCallback:callback];
 }
 
-+ (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView radius:(NSNumber *)radius withCallback:(void (^)(UIImage *))callback
++ (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView radius:(CGFloat)radius withCallback:(void (^)(UIImage *))callback
 {
     BlurTask *task = [BlurTask new];
     task.image = image;
@@ -119,7 +119,7 @@ static CGFloat const kDefaultRadius = 35.0;
 
 - (void)executeTask:(BlurTask *)task
 {
-    if (!task.blurRadius.floatValue) {
+    if (!task.blurRadius) {
         completeTask(task, task.image);
         [self renderNextImage];
         return;

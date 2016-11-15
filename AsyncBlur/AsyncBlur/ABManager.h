@@ -15,10 +15,10 @@
 + (void)setShouldBlurOnSimulator:(BOOL)shouldBlurOnSimulator;
 
 + (void)renderBlurForImage:(UIImage *)image andSetInImageView:(UIImageView *)imageView;
-+ (void)renderBlurForImage:(UIImage *)image radius:(NSNumber *)radius andSetInImageView:(UIImageView *)imageView;
++ (void)renderBlurForImage:(UIImage *)image radius:(CGFloat)radius andSetInImageView:(UIImageView *)imageView;
 
 + (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView withCallback:(void (^)(UIImage *blurredImage))callback;
-+ (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView radius:(NSNumber *)radius withCallback:(void (^)(UIImage *blurredImage))callback;
++ (void)renderBlurForImage:(UIImage *)image forImageView:(UIImageView *)imageView radius:(CGFloat)radius withCallback:(void (^)(UIImage *blurredImage))callback;
 
 
 @end
