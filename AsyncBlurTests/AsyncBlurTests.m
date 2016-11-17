@@ -25,7 +25,7 @@
     __block UIImage *lastImage = nil;
     
     for (int i = 100; i >= 0; i--) {
-        [ABManager renderBlurForImage:originalImage forImageView:imageViewForTest radius:@(i) withCallback:^(UIImage *blurredImage) {
+        [ABManager renderBlurForImage:originalImage forImageView:imageViewForTest radius:i withCallback:^(UIImage *blurredImage) {
             NSLog(@"%@", blurredImage);
             lastImage = blurredImage;
         }];
