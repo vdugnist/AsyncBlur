@@ -130,9 +130,9 @@ static CGFloat const kDefaultRadius = 35.0;
         
         if (task.imageView) {
             CGFloat scale = [UIScreen mainScreen].scale;
-            CGSize imageSizeInPoints = task.imageView.frame.size;
-            CGSize imageSizeInPixels = CGSizeMake(imageSizeInPoints.width * scale, imageSizeInPoints.height * scale);
-            blurred = [task.image ab_blurredImageWithRadius:task.blurRadius scaledToSize:imageSizeInPixels];
+            CGSize imageViewSizeInPoints = task.imageView.frame.size;
+            CGSize imageViewSizeInPixels = CGSizeMake(imageViewSizeInPoints.width * scale, imageViewSizeInPoints.height * scale);
+            blurred = [task.image ab_blurredImageWithRadius:task.blurRadius scaledToSize:imageViewSizeInPixels];
         } else {
             blurred = [task.image ab_blurredImageWithRadius:task.blurRadius];
         }
