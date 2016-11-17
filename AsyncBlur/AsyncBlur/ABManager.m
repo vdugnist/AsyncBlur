@@ -103,6 +103,7 @@ static CGFloat const kDefaultRadius = 35.0;
     self.isRenderring = YES;
     
     BlurTask *taskToRender = [_tasks lastObject];
+    [_tasks removeLastObject];
     [self removeTasksSimilarTo:taskToRender];
     [self executeTask:taskToRender];
 }

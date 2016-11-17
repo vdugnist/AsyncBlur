@@ -19,30 +19,43 @@
     [ABManager setShouldBlurOnSimulator:YES];
 }
 
-- (void)testProgressiveRenderToZero {
+- (void)testMultipleBlurForSameImageViewWillNotRenderAllOperations {
+    NSUInteger operationsCount = 100;
     UIImageView *imageViewForTest = [UIImageView new];
     UIImage *originalImage = [UIImage imageNamed:@"lena"];
-    __block UIImage *lastImage = nil;
+    __block NSUInteger count = 0;
     
-    for (int i = 100; i >= 0; i--) {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"wait for render all tasks"];
+
+    for (NSInteger i = operationsCount; i >= 0; i--) {
         [ABManager renderBlurForImage:originalImage forImageView:imageViewForTest radius:i withCallback:^(UIImage *blurredImage) {
-            NSLog(@"%@", blurredImage);
-            lastImage = blurredImage;
+            count++;
+            
+            if (i == 0) {
+                [expectation fulfill];
+            }
         }];
     }
     
-    NSUInteger timeoutToRender = 10;
     
-    XCTestExpectation *expectation = [self expectationWithDescription:@"wait for check last render result"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeoutToRender * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        XCTAssertEqual(originalImage, lastImage);
-        [expectation fulfill];
-    });
-    
-    [self waitForExpectationsWithTimeout:timeoutToRender + 1 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
         XCTAssert(!error);
     }];
+    
+    // first and last operation
+    XCTAssert(count == 2);
+}
+
+- (void)testZeroBlurReturnsSameImage {
+    UIImage *originalImage = [UIImage imageNamed:@"lena"];
+    __block BOOL blockCalled = NO;
+    
+    [ABManager renderBlurForImage:originalImage forImageView:nil radius:0 withCallback:^(UIImage * _Nonnull blurredImage) {
+        XCTAssert(blurredImage == originalImage);
+        blockCalled = YES;
+    }];
+    
+    XCTAssert(blockCalled);
 }
 
 @end
