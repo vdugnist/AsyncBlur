@@ -95,7 +95,6 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
 
 
 - (vImage_Error)ab_getVImageBuffer:(vImage_Buffer *)resultBuffer scaledToSize:(CGSize)size {
-    CGFloat ratio = 0;
     
     vImage_Error(^completeWithBufferAndError)(vImage_Buffer buffer, vImage_Error error) = ^vImage_Error(vImage_Buffer buffer, vImage_Error error) {
         if (error != kvImageNoError) {
@@ -111,16 +110,10 @@ static CGFloat const kGausianToTentRadiusRatio = 5;
         return error;
     };
     
-    if (self.size.width > size.width) {
-        ratio = size.width / self.size.width;
-    }
+    CGFloat ratio = 1;
     
-    if (self.size.height > size.height) {
-        ratio = MIN(ratio, size.height / self.size.height);
-    }
-    
-    if (!ratio) {
-        ratio = 1;
+    if (self.size.width > size.width && self.size.height > size.height) {
+        ratio = MAX(size.width / self.size.width, size.height / self.size.height);
     }
     
     CGSize resultSize = CGSizeMake(self.size.width * ratio, self.size.height * ratio);
