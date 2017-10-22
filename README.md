@@ -37,7 +37,7 @@ __weak typeof(self) wSelf = self;
 
 ## Author
 
-Vlad Dugnist, vdugnist@gmail.com
+Vladislav Dugnist, vdugnist@gmail.com
 
 ## License
 
